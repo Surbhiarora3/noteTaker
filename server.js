@@ -12,21 +12,21 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
-app.use(express.static('./develop/public'));
+app.use(express.static('./public'));
 
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './develop/public/index.html'))
+    res.sendFile(path.join(__dirname, './public/index.html'))
 })
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './develop/public/notes.html'))
+    res.sendFile(path.join(__dirname, './public/notes.html'))
 })
 
 
 
 app.get('/api/notes', (req, res) => {
-    fs.readFile('./develop/db/db.json', "utf-8", (err, data) => {
+    fs.readFile('./db/db.json', "utf-8", (err, data) => {
         if (err) {
             throw err
         } else {
@@ -49,7 +49,7 @@ app.post('/api/notes', (req, res) => {
             text
         };
         console.log(newNotes)
-        fs.readFile('./develop/db/db.json', 'utf-8', (err, data) => {
+        fs.readFile('./db/db.json', 'utf-8', (err, data) => {
             if (err) {
                 throw err
             } else {
@@ -57,7 +57,7 @@ app.post('/api/notes', (req, res) => {
                 const note = JSON.parse(data);
                 note.push(newNotes)
                 console.log(req.body);
-                fs.writeFile('./develop/db/db.json', JSON.stringify(note, null, 2), (err, data) => {
+                fs.writeFile('./db/db.json', JSON.stringify(note, null, 2), (err, data) => {
                     console.log(data)
                     if (err) {
                         throw err
@@ -76,7 +76,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
     const id = req.params.id
     console.log(id)
-    fs.readFile('./develop/db/db.json', 'utf-8', (err, data) => {
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
         if (err) {
             throw err
         }
@@ -84,7 +84,7 @@ app.delete('/api/notes/:id', (req, res) => {
         const deleteId = newData.filter(idSet => idSet.id !== id)
         console.log(deleteId)
 
-        fs.writeFile('./develop/db/db.json', JSON.stringify(deleteId, null, 2), (err, data) => {
+        fs.writeFile('./db/db.json', JSON.stringify(deleteId, null, 2), (err, data) => {
             if (err) {
                 throw err
             } else {
@@ -98,7 +98,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './develop/public/index.html'))
+    res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
 
