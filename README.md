@@ -6,6 +6,7 @@ User can write and delete notes
 # installation 
 install all dependencies and required framework
 
+# npm start for script file for heroku deployment
 
 
 ![Screenshot 2022-05-21 195722](https://user-images.githubusercontent.com/55901542/169676306-3701700a-9711-464e-89dc-de4ad846e13b.jpg)
